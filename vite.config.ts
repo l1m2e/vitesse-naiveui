@@ -2,8 +2,10 @@
 
 import path from 'node:path'
 import Vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import VueMacros from 'unplugin-vue-macros/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
@@ -29,6 +31,7 @@ export default defineConfig({
         }),
       },
     }),
+    vueJsx(),
 
     // https://github.com/posva/unplugin-vue-router
     VueRouter(),
@@ -43,6 +46,14 @@ export default defineConfig({
           // add any other imports you were relying on
           'vue-router/auto': ['useLink'],
         },
+        {
+          'naive-ui': [
+            'useDialog',
+            'useMessage',
+            'useNotification',
+            'useLoadingBar',
+          ],
+        },
       ],
       dts: true,
       dirs: [
@@ -53,6 +64,11 @@ export default defineConfig({
 
     // https://github.com/antfu/vite-plugin-components
     Components({
+      extensions: ['vue', 'jsx', 'tsx'],
+      include: [/\.vue$/, /\.vue\?vue/, /\.jsx$/, /\.tsx$/],
+      resolvers: [
+        NaiveUiResolver(),
+      ],
       dts: true,
     }),
 
