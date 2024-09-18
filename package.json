@@ -13,6 +13,9 @@
     "postinstall": "npx simple-git-hooks"
   },
   "dependencies": {
+    "@apidevtools/swagger-parser": "^10.1.0",
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@types/react": "^18.3.5",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "@vueuse/core": "^11.0.3",

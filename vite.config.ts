@@ -1,6 +1,8 @@
 /// <reference types="vitest" />
 
 import path from 'node:path'
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
+import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill'
 import Vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite'
@@ -13,6 +15,9 @@ import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
+  define: {
+    'process.env': {},
+  },
   resolve: {
     alias: {
       '~/': `${path.resolve(__dirname, 'src')}/`,
@@ -76,6 +81,22 @@ export default defineConfig({
     // see uno.config.ts for config
     UnoCSS(),
   ],
+
+  optimizeDeps: {
+    include: ['vue', 'vue-router', '@vueuse/core', '@vueuse/head'],
+    esbuildOptions: {
+      define: {
+        global: 'globalThis',
+      },
+      plugins: [
+        NodeGlobalsPolyfillPlugin({
+          process: true,
+          buffer: true,
+        }),
+        NodeModulesPolyfillPlugin(),
+      ],
+    },
+  },
 
   // https://github.com/vitest-dev/vitest
   test: {

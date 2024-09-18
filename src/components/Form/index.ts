@@ -30,4 +30,5 @@ export interface Props {
   xGap?: number
   yGap?: number
   labelPlacement?: 'left' | 'top'
+  defaultSpan?: number
 }

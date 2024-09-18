@@ -8,6 +8,7 @@ const {
   xGap = 10,
   yGap = 10,
   labelPlacement = 'left',
+  defaultSpan = 24,
 } = defineProps<Props>()
 
 const model = ref < Record<string, any>>({})
@@ -23,7 +24,7 @@ function FormItem(item: FormSchema) {
 <template>
   <n-form :model :label-placement>
     <n-grid :x-gap="xGap" :y-gap="yGap">
-      <n-gi v-for="item in schema" :key="item.field" :span="item.span as number || 24">
+      <n-gi v-for="item in schema" :key="item.field" :span="item.span as number || defaultSpan">
         <FormItem v-bind="item" />
       </n-gi>
     </n-grid>

@@ -1,13 +1,16 @@
 <script lang="ts" setup>
-const schema = [
-  { label: 'xx1', field: 'xx', component: 'n-input', span: 12 },
-  { label: 'xx2', field: 'xx2', component: 'n-input', span: 12 },
-]
+import { useTemplateRef } from 'vue'
+
+const mockDialog = useTemplateRef('MockDialog')
 </script>
 
 <template>
   <button icon-btn @click="toggleDark()">
     <div i-carbon-sun dark:i-carbon-moon />
   </button>
-  <Form :schema />
+
+  <n-button @click="mockDialog?.open">
+    打开
+  </n-button>
+  <MockDialog ref="MockDialog" />
 </template>
